@@ -12,8 +12,10 @@ docker compose up -d
 
 | コンテナ名 | URL | 説明 |
 | --- | --- | --- |
-| Swagger UI | http://localhost:8002/ | [./openapi/openapi.yaml](./openapi/openapi.yaml) で定義されているAPI仕様の確認 |
-| Swagger API mock server (Prism) | http://localhost:8003/ | [./openapi/openapi.yaml](./openapi/openapi.yaml) の定義に基づいたモックサーバー |
+| rust |  | rustアプリケーション，ソースコードが変更されると自動で検知してリビルドされる |
+| db |  | MySQLデータベース |
+| swagger-ui | http://localhost:8002/ | [./openapi/openapi.yaml](./openapi/openapi.yaml) で定義されているAPI仕様の確認 |
+| swagger-api | http://localhost:8003/ | [./openapi/openapi.yaml](./openapi/openapi.yaml) の定義に基づいたモックサーバー (Prism) |
 
 ## Swagger
 
