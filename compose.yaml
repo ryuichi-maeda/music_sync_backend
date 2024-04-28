@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   app:
@@ -20,22 +20,10 @@ services:
       MYSQL_DATABASE: music_sync
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-
-  swagger-ui:
-    image: swaggerapi/swagger-ui
-    container_name: "swagger-ui"
-    ports:
-      - "8002:8080"
+        
+  spectaql:
+    image: nginx:alpine
     volumes:
-      - ./openapi/openapi.yaml:/openapi.yaml
-    environment:
-      SWAGGER_JSON: /openapi.yaml
-
-  swagger-api:
-    image: stoplight/prism:3
-    container_name: "swagger-api"
+      - ./docs/spectaql/output:/usr/share/nginx/html
     ports:
-      - "8003:4010"
-    command: mock -h 0.0.0.0 /openapi.yaml
-    volumes:
-      - ./openapi/openapi.yaml:/openapi.yaml
+      - "8001:80"
