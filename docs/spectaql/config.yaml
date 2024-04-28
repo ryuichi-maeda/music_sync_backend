@@ -1,0 +1,14 @@
+spectaql:
+  targetDir: ./output
+  
+introspection:
+  schemaFile: ./schema.graphql
+  fieldExpansionDepth: 3
+
+info:
+  title: MusicSync GraphQL Documentation
+  description: MusicSyncのGraphQL APIのドキュメントです
+    
+servers:
+  - url: http://localhost:8000/graphql
+    description: Local server
