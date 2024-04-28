@@ -8,7 +8,36 @@
 docker compose up -d
 ```
 
-### ユビキタス言語
+### Docker containers
+
+| コンテナ名 | PORT | 説明 |
+| --- | --- | --- |
+| rust | 8000 | rustアプリケーション，ソースコードが変更されると自動で検知してリビルドされる |
+| db | 3306 | MySQLデータベース |
+| spectaql | 8001 | GraphQL API ドキュメント |
+
+## SpectaQL
+
+SpectaQLのインストール。
+
+```
+npm install -g spectaql
+```
+
+以下のコマンドでドキュメントを生成する。
+
+```
+make gen-api-doc
+```
+
+以下のコマンドでも可。
+
+```
+cd docs/spectaql
+npx spectaql config.yaml
+```
+
+## ユビキタス言語
 
 | 言葉 | 意味 |
 | --- | --- |
@@ -20,26 +49,6 @@ docker compose up -d
 | 音楽ライブラリ | 音楽アプリでユーザーが追加した音楽全て |
 | 共有プレイリスト | 各ユーザーの音楽ライブラリの共通の音楽をまとめたもの |
 
-### Docker containers
-
-| コンテナ名 | URL | 説明 |
-| --- | --- | --- |
-| rust |  | rustアプリケーション，ソースコードが変更されると自動で検知してリビルドされる |
-| db |  | MySQLデータベース |
-| swagger-ui | http://localhost:8002/ | [./openapi/openapi.yaml](./openapi/openapi.yaml) で定義されているAPI仕様の確認 |
-| swagger-api | http://localhost:8003/ | [./openapi/openapi.yaml](./openapi/openapi.yaml) の定義に基づいたモックサーバー (Prism) |
-
-## Swagger
-
-APIドキュメント．
-
-[./openapi/openapi.yaml](./openapi/openapi.yaml) で管理．
-
-編集内容をSwagger UIとモックサーバーに反映させるためには，コンテナのリスタートが必要．
-
-```
-docker container restart swagger-ui swagger-api
-```
 
 ## コミットメッセージ　prefix
 Conventional Commit Messageを採用

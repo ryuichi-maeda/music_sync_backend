@@ -1,0 +1,78 @@
+enum UserType {
+    REGISTERED
+    GUEST
+}
+
+type User {
+    id: ID!
+    name: String
+    email: String
+    userType: UserType
+    room: Room
+}
+
+type Room {
+    id: ID!
+    roomPin: Int
+    Host: User
+    IsActive: Boolean
+    users: [User!]
+}
+
+type MusicLibraries {
+    id: ID!
+    user: User
+    musicLibraries: [MusicLibrary!]
+}
+
+type MusicLibrary {
+    id: ID!
+    title: String
+    artist: String
+    appleMusicId: Int
+}
+
+"音楽ライブラリアップロード用の型。アップロード時にはこのリストとユーザー情報が渡される。"
+input MusicLibraryInput {
+    title: String!
+    artist: String!
+    appleMusicId: Int!
+}
+
+"ルームの更新情報"
+type RoomUpdated {
+    id: ID!
+    room: Room
+    "メンバー確定かどうか"
+    isConfirmed: Boolean  
+}
+
+type Query {
+    "ルームメンバーの音楽ライブラリ取得"
+    getMusicLibraries(roomId: ID!): [MusicLibraries!]
+}
+
+type Mutation {
+    "ルーム作成。作成されたルーム情報を返す。"
+    createRoom(userId: ID!): Room
+    
+    "ルーム退出。ルーム情報が更新され、ルームメンバーにPublishされる。退出者がホストの場合、ルームは削除（deactivate）される。"
+    exitRoom(userId: ID!, roomId: ID!): Room
+    
+    "ルーム確定。更新されたルーム情報（deactivate, confirmed）がルームメンバーにPublishされる。"
+    confirmRoom(roomId: ID!): Room
+
+    "音楽ライブラリアップロード。"
+    uploadMusicLibrary(userId: ID!, musicLibraries: [MusicLibraryInput!]): MusicLibrary
+}
+
+type Subscription {
+    "ルーム情報をサブスクライブする。メンバー、ルームがアクティブかどうか、ルームが確定したかどうかがわかる。"
+    roomUpdated(roomId: ID!): RoomUpdated
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
