@@ -18,6 +18,10 @@ docker compose up -d
 
 ## SpectaQL
 
+GraphQL APIのドキュメント生成。
+
+GitHub Pagesにホスティングされている（https://ryuichi-maeda.github.io/music_sync_backend/）。
+
 SpectaQLのインストール。
 
 ```
