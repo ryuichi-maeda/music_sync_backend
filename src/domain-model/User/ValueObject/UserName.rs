@@ -15,6 +15,10 @@ impl UserName {
   pub fn new(userName: &str) -> Result<Self> {
     if userName.is_empty() {
       Err(UserNameError::Empty.into())
+    } else if userName.len() > 14 {
+      Err(UserNameError::TooLong.into())
+    } else {
+      Ok(UserName(userName.to_string()))
     }
     
   }
