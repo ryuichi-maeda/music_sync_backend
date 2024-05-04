@@ -17,7 +17,7 @@ impl GuestUser {
   /// # 戻り値
   /// - `GuestUser` - ユーザー
   pub fn new(user_name: UserName) -> Self {
-    User {
+    GuestUser {
       id: UserID::new(),
       user_name,
       user_type: UserType::Guest,
