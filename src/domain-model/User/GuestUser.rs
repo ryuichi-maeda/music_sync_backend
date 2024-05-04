@@ -3,6 +3,7 @@
 pub struct GuestUser {
   pub id: UserID,
   pub user_name: UserName,
+  pub user_type: UserType,
   pub is_deleted: bool,
 }
 
@@ -19,21 +20,10 @@ impl GuestUser {
     User {
       id: UserID::new(),
       user_name,
+      user_type: UserType::Guest,
       is_deleted: false,
     }
   }
 }
 
-impl User for GuestUser {
-  fn Id(&self) -> UserID {
-    self.id
-  }
-
-  fn name(&self) -> UserName {
-    self.user_name.clone()
-  }
-
-  fn is_deleted(&self) -> bool {
-    self.deleted
-  }
-}
+impl User for GuestUser {}

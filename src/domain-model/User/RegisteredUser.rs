@@ -5,6 +5,7 @@ pub struct RegisteredUser {
   pub user_name: UserName,
   pub email: String,
   pub password: String,
+  pub user_type: UserType,
   pub is_deleted: bool,
 }
 
@@ -24,6 +25,7 @@ impl RegisteredUser {
       user_name,
       email,
       password,
+      user_type: UserType::Registered,
       deleted: false,
     }
   }
