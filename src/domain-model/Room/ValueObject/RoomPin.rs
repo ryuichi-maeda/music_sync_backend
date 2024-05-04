@@ -6,7 +6,9 @@ pub struct RoomPin {
 
 /// 000000から999999までの乱数を生成
 impl RoomPin {
-  pub fn new() {
-    rand::thread_rng().gen_range(000000,1000000)
+  pub fn new() -> RoomPin {
+    RoomPin {
+      rand::thread_rng().gen_range(000000,1000000)
+    }
   }
 }
