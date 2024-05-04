@@ -20,13 +20,13 @@ impl RegisteredUser {
   /// # 戻り値
   /// - `RegisteredUser` - ユーザー
   pub fn new(user_name: UserName, email: String, password: String) -> Self {
-    User {
+    RegisteredUser {
       id: UserID::new(),
       user_name,
       email,
       password,
       user_type: UserType::Registered,
-      deleted: false,
+      is_deleted: false,
     }
   }
 }
