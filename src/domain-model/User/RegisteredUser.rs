@@ -2,10 +2,10 @@
 
 pub struct RegisteredUser {
   pub id: UserID,
-  pub username: UserName,
+  pub user_name: UserName,
   pub email: String,
   pub password: String,
-  pub deleted: bool,
+  pub is_deleted: bool,
 }
 
 impl RegisteredUser {
@@ -13,15 +13,15 @@ impl RegisteredUser {
   ///
   /// # 引数
   /// - `id` - ユーザーID
-  /// - `userName` - ユーザー名
+  /// - `user_name` - ユーザー名
   /// - `password` - パスワード
   ///
   /// # 戻り値
   /// - `RegisteredUser` - ユーザー
-  pub fn new(userName: UserName, email: String, password: String) -> Self {
+  pub fn new(user_name: UserName, email: String, password: String) -> Self {
     User {
       id: UserID::new(),
-      username,
+      user_name,
       email,
       password,
       deleted: false,

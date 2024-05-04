@@ -2,8 +2,8 @@
 
 pub struct GuestUser {
   pub id: UserID,
-  pub username: UserName,
-  pub deleted: bool,
+  pub user_name: UserName,
+  pub is_deleted: bool,
 }
 
 impl GuestUser {
@@ -11,15 +11,15 @@ impl GuestUser {
   ///
   /// # 引数
   /// - `id` - ユーザーID
-  /// - `userName` - ユーザー名
+  /// - `user_name` - ユーザー名
   ///
   /// # 戻り値
   /// - `GuestUser` - ユーザー
-  pub fn new(userName: UserName) -> Self {
+  pub fn new(user_name: UserName) -> Self {
     User {
       id: UserID::new(),
-      username,
-      deleted: false,
+      user_name,
+      is_deleted: false,
     }
   }
 }
@@ -30,10 +30,10 @@ impl User for GuestUser {
   }
 
   fn name(&self) -> UserName {
-    self.username.clone()
+    self.user_name.clone()
   }
 
-  fn isDeleted(&self) -> bool {
+  fn is_deleted(&self) -> bool {
     self.deleted
   }
 }
