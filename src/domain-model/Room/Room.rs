@@ -23,12 +23,14 @@ impl Room {
     self.members.append(user.clone())
   }
 
-  pub fn confirm_room(&self) {
+  pub fn confirm_room(&mut self) {
     self.is_confirm = true
   }
 
   pub fn exit_room(&mut self, user: &User) {
-    self.members.remove(user)
+    if let Some(index) = self.members.iter().position(|x| *x == *user) {  
+      self.members.remove(index);  
+    } 
   }
 
   pub fn close_room(&mut self) {
