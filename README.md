@@ -50,11 +50,11 @@ npx spectaql config.yaml
 | ホスト | Host | ルーム作成者 |
 | ゲスト | Guest | ルーム参加者 |
 | ゲストユーザー | GuestUser | アプリに登録していないユーザー |
-| 登録済みユーザー | RegisterdUser | アプリに登録しているユーザー |
+| 登録済みユーザー | RegisteredUser | アプリに登録しているユーザー |
 | 音楽ライブラリ | Library | 音楽アプリでユーザーが追加した音楽全て |
 | 共有プレイリスト | SharedLibrary | 各ユーザーの音楽ライブラリの共通の音楽をまとめたもの |
 
-
 ## コミットメッセージ　prefix
+
 Conventional Commit Messageを採用
 https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13
