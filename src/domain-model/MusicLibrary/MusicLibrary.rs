@@ -38,8 +38,8 @@ impl MusicLibrary {
 
   /// 音楽を取得する
   /// 
-  pub fn get_musics(&self) -> Vec<Music> {
-    self.musics.clone()
+  pub fn get_musics<'a>(&self) -> &'a Vec<Music> {
+    &self.musics
   }
 
   /// 音楽を削除する
@@ -47,7 +47,7 @@ impl MusicLibrary {
   /// # 引数
   /// - `music`
   pub fn remove_music(&mut self, music: Music) {
-    self.musics.retain(|music| music != music);
+    self.musics.retain(|m| *m != music);
   }
 
   /// 音楽を複数削除する
