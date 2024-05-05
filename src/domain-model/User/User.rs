@@ -4,7 +4,7 @@ pub trait User {
     self.id
   }
 
-  fn name(&self) -> UserName {
+  fn user_name(&self) -> UserName {
     self.user_name.clone()
   }
 
