@@ -12,5 +12,7 @@ reviews:
     ignore_title_keywords:
       - "WIP"
     drafts: false
+    base_branches:
+      - develop
 chat:
   auto_reply: true
