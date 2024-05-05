@@ -27,3 +27,5 @@ thiserror = "1.0.58"
 anyhow = "1.0.81"
 #sql
 sqlx = { version = "0.7.4", features = ["runtime-tokio-rustls", "macros", "mysql"] }
+#乱数
+rand = "0.8.5"
