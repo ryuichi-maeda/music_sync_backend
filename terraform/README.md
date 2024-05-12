@@ -7,7 +7,7 @@
 
 ## 環境変数の設定
 
-```
+```bash
 cp .env.aws-credentials.example .env.aws-credentials
 ```
 
@@ -15,7 +15,7 @@ cp .env.aws-credentials.example .env.aws-credentials
 
 環境変数の読み込み。
 
-```
+```bash
 source .aws-credentials
 ```
 
@@ -23,13 +23,13 @@ source .aws-credentials
 
 反映させたい環境のディレクトリに移動。
 
-```
+```bash
 cd environment/dev
 ```
 
 以下のコマンドで、反映前に確認。
 
-```
+```bash
 # フォーマット
 terraform fmt
 
@@ -42,6 +42,6 @@ terraform plan
 
 特に問題なければ、AWSに反映させる。
 
-```
+```bash
 terraform apply
 ```
