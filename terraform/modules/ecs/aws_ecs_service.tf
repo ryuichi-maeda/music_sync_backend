@@ -16,6 +16,12 @@ resource "aws_ecs_service" "main" {
     container_port   = var.ecs_container_port
   }
 
+  capacity_provider_strategy {
+    capacity_provider = aws_ecs_capacity_provider.main.name
+    base              = 1
+    weight            = 100
+  }
+
   lifecycle {
     ignore_changes = [desired_count]
   }
