@@ -1,11 +1,13 @@
-# Setup
+# ECS on EC2用Terraformコード
 
-## Dependencies
+## Setup
+
+### Dependencies
 
 - terraform
 - aws cli
 
-## 環境変数の設定
+### 環境変数の設定
 
 ```bash
 cp .env.aws-credentials.example .env.aws-credentials
@@ -19,7 +21,7 @@ cp .env.aws-credentials.example .env.aws-credentials
 source .aws-credentials
 ```
 
-# Run
+## Run
 
 反映させたい環境のディレクトリに移動。
 
