@@ -2,14 +2,14 @@ use async_graphql::{http::GraphiQLSource, Object, Schema, SimpleObject, Subscrip
 use async_graphql_axum::{GraphQL, GraphQLSubscription};
 use axum::{
     response::{self, IntoResponse},
-    routing::{get, post_service},
+    routing::get,
     Router,
 };
 use futures_util::stream::Stream;
 use std::time::Duration;
 use tokio::net::TcpListener;
 
-#[derive(SimpleObject, sqlx::FromRow)]
+#[derive(SimpleObject)]
 struct Ping {
     status: String,
     code: i32,
@@ -58,7 +58,7 @@ impl SubscriptionRoot {
 async fn graphiql() -> impl IntoResponse {
     response::Html(
         GraphiQLSource::build()
-            .endpoint("/")
+            .endpoint("/graphql")
             .subscription_endpoint("/ws")
             .finish(),
     )
@@ -69,8 +69,10 @@ async fn main() {
     let schema = Schema::build(QueryRoot, MutationRoot, SubscriptionRoot).finish();
 
     let app = Router::new()
-        .route("/", post_service(GraphQL::new(schema.clone())))
-        .route("/graphiql", get(graphiql))
+        .route(
+            "/graphql",
+            get(graphiql).post_service(GraphQL::new(schema.clone())),
+        )
         .route_service("/ws", GraphQLSubscription::new(schema));
 
     println!("GraphiQL IDE: http://localhost:8000/graphiql");
