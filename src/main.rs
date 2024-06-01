@@ -2,7 +2,7 @@ use async_graphql::{http::GraphiQLSource, Object, Schema, SimpleObject, Subscrip
 use async_graphql_axum::{GraphQL, GraphQLSubscription};
 use axum::{
     response::{self, IntoResponse},
-    routing::get,
+    routing::{get, post_service},
     Router,
 };
 use futures_util::stream::Stream;
@@ -69,13 +69,11 @@ async fn main() {
     let schema = Schema::build(QueryRoot, MutationRoot, SubscriptionRoot).finish();
 
     let app = Router::new()
-        .route(
-            "/",
-            get(graphiql).post_service(GraphQL::new(schema.clone())),
-        )
+        .route("/", post_service(GraphQL::new(schema.clone())))
+        .route("/graphiql", get(graphiql))
         .route_service("/ws", GraphQLSubscription::new(schema));
 
-    println!("GraphiQL IDE: http://localhost:8000");
+    println!("GraphiQL IDE: http://localhost:8000/graphiql");
 
     let server = TcpListener::bind("0.0.0.0:8000").await;
     if let Err(e) = server {
