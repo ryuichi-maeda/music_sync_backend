@@ -39,7 +39,10 @@ async fn main() {
 
     println!("GraphiQL IDE: http://localhost:8000");
 
-    axum::serve(TcpListener::bind("0.0.0.0:8000").await.unwrap(), app)
-        .await
-        .unwrap();
+    let server = TcpListener::bind("0.0.0.0:8000").await;
+    if let Err(e) = server {
+        eprintln!("Error: {}", e);
+        return;
+    }
+    axum::serve(server.unwrap(), app).await.unwrap();
 }
