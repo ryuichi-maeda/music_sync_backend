@@ -9,24 +9,9 @@ use futures_util::stream::Stream;
 use std::time::Duration;
 use tokio::net::TcpListener;
 
-#[derive(SimpleObject)]
-struct Ping {
-    status: String,
-    code: i32,
-}
+mod QueryRootResolver;
 
-// Query
-struct QueryRoot;
-
-#[Object]
-impl QueryRoot {
-    async fn ping(&self) -> Ping {
-        Ping {
-            status: "ok".to_string(),
-            code: 200,
-        }
-    }
-}
+use QueryRootResolver::QueryRoot;
 
 // Mutation
 struct MutationRoot;
