@@ -9,9 +9,9 @@ use futures_util::stream::Stream;
 use std::time::Duration;
 use tokio::net::TcpListener;
 
-mod QueryRootResolver;
+mod query_root_resolver;
 
-use QueryRootResolver::QueryRoot;
+use query_root_resolver::QueryRoot;
 
 // Mutation
 struct MutationRoot;
