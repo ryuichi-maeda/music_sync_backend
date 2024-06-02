@@ -58,7 +58,7 @@ impl SubscriptionRoot {
 async fn graphiql() -> impl IntoResponse {
     response::Html(
         GraphiQLSource::build()
-            .endpoint("/graphql")
+            .endpoint("/graphiql")
             .subscription_endpoint("/ws")
             .finish(),
     )
