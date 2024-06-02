@@ -70,7 +70,7 @@ async fn main() {
 
     let app = Router::new()
         .route(
-            "/graphql",
+            "/graphiql",
             get(graphiql).post_service(GraphQL::new(schema.clone())),
         )
         .route_service("/ws", GraphQLSubscription::new(schema));
