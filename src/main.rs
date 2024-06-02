@@ -1,4 +1,4 @@
-use async_graphql::{http::GraphiQLSource, Object, Schema, SimpleObject, Subscription};
+use async_graphql::{http::GraphiQLSource, Object, Schema, Subscription};
 use async_graphql_axum::{GraphQL, GraphQLSubscription};
 use axum::{
     response::{self, IntoResponse},
