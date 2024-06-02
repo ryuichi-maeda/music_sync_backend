@@ -29,5 +29,11 @@ anyhow = "1.0.81"
 sqlx = { version = "0.7.4", features = ["runtime-tokio-rustls", "macros", "mysql"] }
 #乱数
 rand = "0.8.5"
-#graphql
+#GraphQL
 async-graphql = "7.0.5"
+async-graphql-axum = "7.0.5"
+#Utility
+futures-util = "0.3.30"
+#Stream
+async-stream = "0.3.5"
+futures-timer = "3.0.3"
