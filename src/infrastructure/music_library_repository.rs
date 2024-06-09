@@ -10,6 +10,7 @@ impl MusicLibraryRepository {
     }
 }
 
+// TODO: 実装する
 impl MusicLibraryRepositoryTrait for MusicLibraryRepository {
     fn find_by_id(&self, id: MusicLibraryID) -> Result<MusicLibrary, MusicLibraryRepositoryError> {
         Ok(MusicLibrary {
