@@ -1,5 +1,8 @@
-#[derive(Debug, Clone, PartialEq, Eq)]
+use super::value_object::user_id::UserID;
+use super::value_object::user_name::UserName;
+use super::value_object::user_type::UserType;
 
+#[derive(Debug, PartialEq, Eq)]
 pub struct RegisteredUser {
   pub id: UserID,
   pub user_name: UserName,

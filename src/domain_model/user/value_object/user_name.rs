@@ -1,6 +1,8 @@
 use anyhow::Result;
+use thiserror::Error;
+use std::fmt::{self, Display, Formatter};
 
-#[derive(Error, Debug, Clone)]
+#[derive(Error, Clone, Debug, PartialEq, Eq)]
 pub struct UserName(String);
 
 #[derive(Error, Debug, Clone)]
@@ -23,3 +25,9 @@ impl UserName {
     
   }
 }
+
+impl Display for UserName {
+  fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+    write!(f, "{}", self.0)
+  }
+} 

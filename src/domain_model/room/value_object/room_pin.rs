@@ -1,5 +1,6 @@
 use rand::Rng;
 
+#[derive(Debug, PartialEq, Eq)]
 pub struct RoomPin {
   value: u32
 }
@@ -8,7 +9,7 @@ pub struct RoomPin {
 impl RoomPin {
   pub fn new() -> Self{
     RoomPin {
-      rand.thread_rng().gen_range(000000,1000000)
+      value: rand::thread_rng().gen_range(0..999999)
     }
   }
 }

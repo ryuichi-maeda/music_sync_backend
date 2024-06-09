@@ -1,4 +1,4 @@
-use async_graphql::{http::GraphiQLSource, Object, Schema, SimpleObject, Subscription};
+use async_graphql::{http::GraphiQLSource, Object, Schema, Subscription};
 use async_graphql_axum::{GraphQL, GraphQLSubscription};
 use axum::{
     response::{self, IntoResponse},
@@ -9,24 +9,10 @@ use futures_util::stream::Stream;
 use std::time::Duration;
 use tokio::net::TcpListener;
 
-#[derive(SimpleObject)]
-struct Ping {
-    status: String,
-    code: i32,
-}
+mod resolver;
+mod domain_model;
 
-// Query
-struct QueryRoot;
-
-#[Object]
-impl QueryRoot {
-    async fn ping(&self) -> Ping {
-        Ping {
-            status: "ok".to_string(),
-            code: 200,
-        }
-    }
-}
+use resolver::query_root_resolver::QueryRoot;
 
 // Mutation
 struct MutationRoot;
@@ -58,7 +44,7 @@ impl SubscriptionRoot {
 async fn graphiql() -> impl IntoResponse {
     response::Html(
         GraphiQLSource::build()
-            .endpoint("/graphql")
+            .endpoint("/graphiql")
             .subscription_endpoint("/ws")
             .finish(),
     )
@@ -70,7 +56,7 @@ async fn main() {
 
     let app = Router::new()
         .route(
-            "/graphql",
+            "/graphiql",
             get(graphiql).post_service(GraphQL::new(schema.clone())),
         )
         .route_service("/ws", GraphQLSubscription::new(schema));

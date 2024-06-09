@@ -1,6 +1,9 @@
+use async_graphql::SimpleObject;
+use uuid::Uuid;
 
+#[derive(Debug, Clone, PartialEq, Eq, SimpleObject)]
 pub struct UserID {
-  value: Uuid,
+  value: String,
 }
 
 impl UserID {
@@ -10,7 +13,7 @@ impl UserID {
   /// - `UserID` - ユーザーID
   pub fn new() -> Self {
     UserID {
-      value: Uuid::new_v4(),
+      value: Uuid::new_v4().to_string(),
     }
   }
 }
