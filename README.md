@@ -8,6 +8,12 @@
 docker compose up -d
 ```
 
+マイグレーション
+
+```
+make migrate
+```
+
 ### Docker containers
 
 | コンテナ名 | PORT | 説明 |
