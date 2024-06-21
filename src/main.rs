@@ -1,65 +1,32 @@
-use async_graphql::{http::GraphiQLSource, Object, Schema, Subscription};
-use async_graphql_axum::{GraphQL, GraphQLSubscription};
-use axum::{
-    response::{self, IntoResponse},
-    routing::get,
-    Router,
-};
-use futures_util::stream::Stream;
-use std::time::Duration;
+use dotenv;
+use resolver::query_root_resolver::Dependency;
+use sqlx::MySqlPool;
 use tokio::net::TcpListener;
+use std::sync::Arc;
+
+use presentation::controller::create_router;
 
 mod resolver;
 mod domain_model;
-
-use resolver::query_root_resolver::QueryRoot;
-
-// Mutation
-struct MutationRoot;
-
-#[Object]
-impl MutationRoot {
-    async fn add(&self, a: i32, b: i32) -> i32 {
-        a + b
-    }
-}
-
-// Subscription
-struct SubscriptionRoot;
-
-#[Subscription]
-impl SubscriptionRoot {
-    async fn interval(&self, #[graphql(default = 1)] n: i32) -> impl Stream<Item = i32> {
-        let mut value = 0;
-        async_stream::stream! {
-            loop {
-                futures_timer::Delay::new(Duration::from_secs(1)).await;
-                value += n;
-                yield value;
-            }
-        }
-    }
-}
-
-async fn graphiql() -> impl IntoResponse {
-    response::Html(
-        GraphiQLSource::build()
-            .endpoint("/graphiql")
-            .subscription_endpoint("/ws")
-            .finish(),
-    )
-}
+mod domain_service;
+mod application_service;
+mod infrastructure;
+mod presentation;
 
 #[tokio::main]
 async fn main() {
-    let schema = Schema::build(QueryRoot, MutationRoot, SubscriptionRoot).finish();
 
-    let app = Router::new()
-        .route(
-            "/graphiql",
-            get(graphiql).post_service(GraphQL::new(schema.clone())),
-        )
-        .route_service("/ws", GraphQLSubscription::new(schema));
+    let pool = MySqlPool::connect(dotenv::var("DATABASE_URL").unwrap().as_str())
+        .await
+        .unwrap();
+
+    let dependency = Dependency::new(
+        Arc::new(infrastructure::music_library_repository::MusicLibraryRepository::new(pool.clone())),
+        Arc::new(infrastructure::user_repository::UserRepository::new(pool.clone())),
+        Arc::new(infrastructure::room_repository::RoomRepository::new(pool.clone())),
+    );
+
+    let router = create_router(dependency).await;
 
     println!("GraphiQL IDE: http://localhost:8000/graphiql");
 
@@ -68,5 +35,5 @@ async fn main() {
         eprintln!("Error: {}", e);
         return;
     }
-    axum::serve(server.unwrap(), app).await.unwrap();
+    axum::serve(server.unwrap(), router).await.unwrap();
 }
