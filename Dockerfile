@@ -5,4 +5,6 @@ COPY . .
 
 RUN cargo install cargo-watch
 
+RUN cargo install sqlx-cli
+
 CMD ["cargo", "watch", "-x", "run"]
