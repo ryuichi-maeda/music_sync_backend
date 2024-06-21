@@ -1,5 +1,5 @@
 use dotenv;
-use resolver::query_root_resolver::Dependency;
+use resolver::query_root_resolver::QueryDependency;
 use sqlx::MySqlPool;
 use tokio::net::TcpListener;
 use std::sync::Arc;
@@ -20,7 +20,7 @@ async fn main() {
         .await
         .unwrap();
 
-    let dependency = Dependency::new(
+    let dependency = QueryDependency::new(
         Arc::new(infrastructure::music_library_repository::MusicLibraryRepository::new(pool.clone())),
         Arc::new(infrastructure::user_repository::UserRepository::new(pool.clone())),
         Arc::new(infrastructure::room_repository::RoomRepository::new(pool.clone())),

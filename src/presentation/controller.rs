@@ -9,9 +9,9 @@ use futures_util::stream::Stream;
 use std::time::Duration;
 use sqlx::MySqlPool;
 
-use crate::resolver::query_root_resolver::{Dependency, QueryRoot};
+use crate::resolver::query_root_resolver::{QueryDependency, QueryRoot};
 
-pub async fn create_router(dependency: Dependency) -> Router {
+pub async fn create_router(dependency: QueryDependency) -> Router {
     let schema = Schema::build(QueryRoot, MutationRoot, SubscriptionRoot).data(dependency).finish();
 
     let router = Router::new()
