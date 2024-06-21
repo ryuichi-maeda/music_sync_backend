@@ -11,5 +11,5 @@ pub trait UserRepositoryTrait: Send + Sync {
     async fn save(&self, user: GuestUser) -> Result<()>;
     async fn update(&self, user: GuestUser) -> Result<()>;
     async fn delete(&self, user: GuestUser) -> Result<()>;
-    async fn check_existence(&self, id: UserID) -> Result<()>;
+    async fn check_existence(&self, id: UserID) -> Result<bool>;
 }
