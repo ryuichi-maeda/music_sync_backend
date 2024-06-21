@@ -39,3 +39,5 @@ async-stream = "0.3.5"
 futures-timer = "3.0.3"
 #uuid
 uuid = { version = "1.8.0", features = ["v4"]}
+#環境変数用
+dotenv = "0.15.0"

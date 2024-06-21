@@ -20,7 +20,9 @@ services:
       MYSQL_DATABASE: music_sync
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-        
+    volumes:
+      - ./db:/var/lib/mysql/data
+
   spectaql:
     image: nginx:alpine
     volumes:
