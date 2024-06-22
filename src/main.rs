@@ -23,7 +23,7 @@ async fn main() {
     let dependency = QueryDependency::new(
         Arc::new(infrastructure::music_library_repository::MusicLibraryRepository::new(pool.clone())),
         Arc::new(infrastructure::user_repository::UserRepository::new(pool.clone())),
-        Arc::new(infrastructure::room_repository::RoomRepository::new(pool.clone())),
+        Arc::new(infrastructure::room_repository::RoomRepository::new(pool)),
     );
 
     let router = create_router(dependency).await;
