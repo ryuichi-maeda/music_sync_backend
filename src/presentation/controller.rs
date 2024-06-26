@@ -9,6 +9,7 @@ use futures_util::stream::Stream;
 use std::time::Duration;
 
 use crate::resolver::query_root_resolver::QueryRoot;
+use crate::resolver::mutation_root_resolver::MutationRoot;
 use crate::Dependency;
 
 pub async fn create_router(dependency: Dependency) -> Router {
@@ -34,15 +35,6 @@ pub async fn graphiql() -> impl IntoResponse {
 }
 
 //TODO: resolverに移動
-// Mutation
-struct MutationRoot;
-
-#[Object]
-impl MutationRoot {
-    async fn add(&self, a: i32, b: i32) -> i32 {
-        a + b
-    }
-}
 
 // Subscription
 struct SubscriptionRoot;
