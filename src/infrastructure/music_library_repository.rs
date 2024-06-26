@@ -25,23 +25,23 @@ impl MusicLibraryRepositoryTrait for MusicLibraryRepository {
             user_id
         )
         .fetch_one(&self.pool)
-        .await?;
+        .await;
 
-        Ok(MusicLibrary {
-            user_id: UserID::new(),
-            musics: vec![music],
-        })
+        if let music = music {
+            return Ok(MusicLibrary {
+                user_id: UserID::new(),
+                musics: vec![music],
+            })
+        } else {
+            return Err(anyhow::Error::msg("Not found"));
+        }
     }
 
     async fn find_by_user_id(&self, user_id: UserID) -> Result<Vec<MusicLibrary>> {
         todo!()
     }
 
-    async fn find_all(&self) -> Result<Vec<MusicLibrary>> {
-        todo!()
-    }
-
-    async fn save(&self, music_library: MusicLibrary) -> Result<()> {
+    async fn save(&self, user_id: UserID, music_library: MusicLibrary) -> Result<MusicLibrary> {
         todo!()
     }
 
@@ -49,4 +49,3 @@ impl MusicLibraryRepositoryTrait for MusicLibraryRepository {
         todo!()
     }
 }
-
