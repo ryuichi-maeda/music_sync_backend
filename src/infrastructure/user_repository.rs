@@ -38,7 +38,7 @@ impl UserRepositoryTrait for UserRepository {
       todo!()
   }
 
-  async fn check_existence(&self, id: UserID) -> Result<()> {
+  async fn check_existence(&self, id: UserID) -> Result<bool> {
       todo!()
   }
 

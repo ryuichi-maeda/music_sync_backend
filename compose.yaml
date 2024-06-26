@@ -21,7 +21,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     volumes:
-      - ./db:/var/lib/mysql/data
+      - ./db:/var/lib/mysql
 
   spectaql:
     image: nginx:alpine
