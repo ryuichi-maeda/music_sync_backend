@@ -1,4 +1,4 @@
-use async_graphql::{http::GraphiQLSource, Object, Schema, Subscription};
+use async_graphql::{http::GraphiQLSource, Schema, Subscription};
 use async_graphql_axum::{GraphQL, GraphQLSubscription};
 use axum::{
     response::{self, IntoResponse},
@@ -7,11 +7,11 @@ use axum::{
 };
 use futures_util::stream::Stream;
 use std::time::Duration;
-use sqlx::MySqlPool;
 
-use crate::resolver::query_root_resolver::{QueryDependency, QueryRoot};
+use crate::resolver::query_root_resolver::QueryRoot;
+use crate::Dependency;
 
-pub async fn create_router(dependency: QueryDependency) -> Router {
+pub async fn create_router(dependency: Dependency) -> Router {
     let schema = Schema::build(QueryRoot, MutationRoot, SubscriptionRoot).data(dependency).finish();
 
     let router = Router::new()
