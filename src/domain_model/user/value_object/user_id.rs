@@ -1,7 +1,7 @@
-use async_graphql::SimpleObject;
+use async_graphql::{InputObject, SimpleObject};
 use uuid::Uuid;
 
-#[derive(Debug, Clone, PartialEq, Eq, SimpleObject)]
+#[derive(Debug, Clone, PartialEq, Eq, SimpleObject, InputObject)]
 pub struct UserID {
   value: String,
 }

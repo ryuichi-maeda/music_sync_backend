@@ -1,6 +1,6 @@
-use async_graphql::SimpleObject;
+use async_graphql::{InputObject, SimpleObject};
 
-#[derive(Debug, Clone, PartialEq, Eq, SimpleObject)]
+#[derive(Debug, Clone, PartialEq, Eq, SimpleObject, InputObject)]
 pub struct Music {
   pub title: String,
   pub artist: String,

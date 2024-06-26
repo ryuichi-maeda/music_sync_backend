@@ -1,9 +1,9 @@
 use super::value_object::music::Music;
 use crate::domain_model::user::value_object::user_id::UserID;
 
-use async_graphql::SimpleObject;
+use async_graphql::{InputObject, SimpleObject};
 
-#[derive(Debug, PartialEq, Eq, SimpleObject)]
+#[derive(Debug, PartialEq, Eq, SimpleObject, InputObject)]
 pub struct MusicLibrary {
   pub user_id: UserID,
   pub musics: Vec<Music>,
