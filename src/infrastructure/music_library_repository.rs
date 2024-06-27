@@ -25,16 +25,12 @@ impl MusicLibraryRepositoryTrait for MusicLibraryRepository {
             user_id
         )
         .fetch_one(&self.pool)
-        .await;
+        .await?;
 
-        if let music = music {
-            return Ok(MusicLibrary {
-                user_id: UserID::new(),
-                musics: vec![music],
-            })
-        } else {
-            return Err(anyhow::Error::msg("Not found"));
-        }
+        Ok(MusicLibrary {
+            user_id: UserID::new(),
+            musics: vec![music],
+        })
     }
 
     async fn find_by_user_id(&self, user_id: UserID) -> Result<Vec<MusicLibrary>> {
