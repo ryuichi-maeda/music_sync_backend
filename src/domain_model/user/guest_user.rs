@@ -20,9 +20,9 @@ impl GuestUser {
     ///
     /// # 戻り値
     /// - `GuestUser` - ユーザー
-    pub fn new(user_name: UserName) -> Self {
+    pub fn new(id: String, user_name: UserName) -> Self {
         GuestUser {
-            id: UserID::new(),
+            id: UserID::new(id),
             user_name,
             user_type: UserType::Guest,
             is_deleted: false,

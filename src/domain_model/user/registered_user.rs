@@ -22,9 +22,9 @@ impl RegisteredUser {
     ///
     /// # 戻り値
     /// - `RegisteredUser` - ユーザー
-    pub fn new(user_name: UserName, email: String, password: String) -> Self {
+    pub fn new(id: String, user_name: UserName, email: String, password: String) -> Self {
         RegisteredUser {
-            id: UserID::new(),
+            id: UserID::new(id),
             user_name,
             email,
             password,

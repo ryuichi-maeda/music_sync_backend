@@ -28,7 +28,7 @@ impl MusicLibraryRepositoryTrait for MusicLibraryRepository {
         .await?;
 
         Ok(MusicLibrary {
-            user_id: UserID::new(),
+            user_id: UserID::new(user_id),
             musics: vec![music],
         })
     }
@@ -67,7 +67,7 @@ impl MusicLibraryRepositoryTrait for MusicLibraryRepository {
         }
 
         Ok(MusicLibrary {
-            user_id: UserID,
+            user_id: UserID::new(music_library.user_id),
             musics: musics,
         })
     }
