@@ -1,30 +1,33 @@
 use dotenv;
 use sqlx::MySqlPool;
-use tokio::net::TcpListener;
 use std::sync::Arc;
+use tokio::net::TcpListener;
 
-use presentation::controller::create_router;
 use domain_service::music_library_repository_trait::MusicLibraryRepositoryTrait;
-use domain_service::user_repository_trait::UserRepositoryTrait;
 use domain_service::room_repository_trait::RoomRepositoryTrait;
+use domain_service::user_repository_trait::UserRepositoryTrait;
+use presentation::controller::create_router;
 
-mod resolver;
+mod application_service;
 mod domain_model;
 mod domain_service;
-mod application_service;
 mod infrastructure;
 mod presentation;
+mod resolver;
 
 #[tokio::main]
 async fn main() {
-
     let pool = MySqlPool::connect(dotenv::var("DATABASE_URL").unwrap().as_str())
         .await
         .unwrap();
 
     let dependency = Dependency::new(
-        Arc::new(infrastructure::music_library_repository::MusicLibraryRepository::new(pool.clone())),
-        Arc::new(infrastructure::user_repository::UserRepository::new(pool.clone())),
+        Arc::new(
+            infrastructure::music_library_repository::MusicLibraryRepository::new(pool.clone()),
+        ),
+        Arc::new(infrastructure::user_repository::UserRepository::new(
+            pool.clone(),
+        )),
         Arc::new(infrastructure::room_repository::RoomRepository::new(pool)),
     );
 

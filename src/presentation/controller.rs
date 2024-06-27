@@ -8,12 +8,14 @@ use axum::{
 use futures_util::stream::Stream;
 use std::time::Duration;
 
-use crate::resolver::query_root_resolver::QueryRoot;
 use crate::resolver::mutation_root_resolver::MutationRoot;
+use crate::resolver::query_root_resolver::QueryRoot;
 use crate::Dependency;
 
 pub async fn create_router(dependency: Dependency) -> Router {
-    let schema = Schema::build(QueryRoot, MutationRoot, SubscriptionRoot).data(dependency).finish();
+    let schema = Schema::build(QueryRoot, MutationRoot, SubscriptionRoot)
+        .data(dependency)
+        .finish();
 
     let router = Router::new()
         .route(
@@ -22,7 +24,7 @@ pub async fn create_router(dependency: Dependency) -> Router {
         )
         .route_service("/ws", GraphQLSubscription::new(schema));
 
-     router
+    router
 }
 
 pub async fn graphiql() -> impl IntoResponse {

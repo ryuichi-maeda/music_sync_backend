@@ -17,9 +17,16 @@ impl QueryRoot {
         }
     }
 
-    async fn get_music_libraries<'ctx>(&self, ctx: &Context<'ctx>, room_id: String) -> Result<Vec<MusicLibrary>> {
+    async fn get_music_libraries<'ctx>(
+        &self,
+        ctx: &Context<'ctx>,
+        room_id: String,
+    ) -> Result<Vec<MusicLibrary>> {
         let ctx = ctx.data::<Dependency>().unwrap();
-        let music = ctx.get_music_library_repository().find_by_id(room_id).await?;
+        let music = ctx
+            .get_music_library_repository()
+            .find_by_id(room_id)
+            .await?;
         Ok(vec![music])
     }
 }

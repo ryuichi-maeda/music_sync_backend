@@ -1,7 +1,7 @@
 use super::value_object::music::{Music, MusicInput};
 use crate::domain_model::user::value_object::user_id::UserID;
 
-use async_graphql::{SimpleObject, InputObject};
+use async_graphql::{InputObject, SimpleObject};
 
 #[derive(Debug, PartialEq, Eq, SimpleObject)]
 pub struct MusicLibrary {

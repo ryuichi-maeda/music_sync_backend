@@ -66,8 +66,6 @@ impl MusicLibraryRepositoryTrait for MusicLibraryRepository {
             musics.push(music);
         }
 
-        
-
         Ok(MusicLibrary {
             user_id: UserID,
             musics: musics,
