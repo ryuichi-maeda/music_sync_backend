@@ -1,13 +1,13 @@
-use crate::domain_model::music_library::music_library::MusicLibrary;
+use crate::domain_model::music_library::music_library::{MusicLibrary, MusicLibraryInput};
 use crate::domain_model::music_library::value_object::music::Music;
-use crate::domain_model::user::value_object::user_id::UserID;
+use crate::domain_model::user::value_object::user_id::{UserID, UserIDInput};
 use crate::domain_service::music_library_repository_trait::MusicLibraryRepositoryTrait;
 use anyhow::Result;
 use async_graphql::async_trait::async_trait;
 use sqlx::MySqlPool;
 
 pub struct MusicLibraryRepository {
-    pool: MySqlPool
+    pool: MySqlPool,
 }
 
 impl MusicLibraryRepository {
@@ -37,8 +37,41 @@ impl MusicLibraryRepositoryTrait for MusicLibraryRepository {
         todo!()
     }
 
-    async fn save(&self, user_id: UserID, music_library: MusicLibrary) -> Result<MusicLibrary> {
-        todo!()
+    async fn save(&self, music_library: MusicLibraryInput) -> Result<MusicLibrary> {
+        let mut musics = vec![];
+
+        for music in music_library.musics.iter() {
+            let result = sqlx::query_as!(
+                Music,
+                r#"INSERT INTO music_library (user_id, title, artist, apple_music_id)
+                    VALUES (?, ?, ?, ?) "#,
+                music_library.user_id,
+                music.title,
+                music.artist,
+                music.apple_music_id
+            )
+            .execute(&self.pool)
+            .await?;
+
+            let last_insert_id = result.last_insert_id() as i32;
+
+            let music = sqlx::query_as!(
+                Music,
+                r#"SELECT title, artist, apple_music_id FROM music_library WHERE id = ?"#,
+                last_insert_id
+            )
+            .fetch_one(&self.pool)
+            .await?;
+
+            musics.push(music);
+        }
+
+        
+
+        Ok(MusicLibrary {
+            user_id: UserID,
+            musics: musics,
+        })
     }
 
     async fn delete(&self, music_library: MusicLibrary) -> Result<()> {
