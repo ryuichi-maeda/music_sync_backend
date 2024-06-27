@@ -1,5 +1,5 @@
-use anyhow::Result;
 use crate::domain_model::room::room::Room;
+use anyhow::Result;
 use axum::async_trait;
 
 #[async_trait]

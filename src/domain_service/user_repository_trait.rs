@@ -1,8 +1,8 @@
 use crate::domain_model::user::guest_user::GuestUser;
 use crate::domain_model::user::value_object::user_id::UserID;
 
-use axum::async_trait;
 use anyhow::Result;
+use axum::async_trait;
 
 #[async_trait]
 pub trait UserRepositoryTrait: Send + Sync {

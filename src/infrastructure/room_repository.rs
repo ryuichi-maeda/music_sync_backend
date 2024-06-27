@@ -1,13 +1,12 @@
 use crate::domain_model::room::room::Room;
 use crate::domain_service::room_repository_trait::RoomRepositoryTrait;
 
-use async_graphql::async_trait::async_trait;
 use anyhow::Result;
+use async_graphql::async_trait::async_trait;
 use sqlx::MySqlPool;
 
-
 pub struct RoomRepository {
-    pool: MySqlPool
+    pool: MySqlPool,
 }
 
 impl RoomRepository {
