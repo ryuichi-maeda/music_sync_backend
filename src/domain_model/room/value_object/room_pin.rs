@@ -1,6 +1,7 @@
+use async_graphql::SimpleObject;
 use rand::Rng;
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, SimpleObject)]
 pub struct RoomPin {
     value: u32,
 }

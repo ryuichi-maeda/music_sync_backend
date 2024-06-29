@@ -1,9 +1,11 @@
+use async_graphql::SimpleObject;
+
 use super::user::User;
 use super::value_object::user_id::UserID;
 use super::value_object::user_name::UserName;
 use super::value_object::user_type::UserType;
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, SimpleObject)]
 pub struct GuestUser {
     pub id: UserID,
     pub user_name: UserName,
