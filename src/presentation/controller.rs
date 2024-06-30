@@ -1,15 +1,14 @@
-use async_graphql::{http::GraphiQLSource, Schema, Subscription};
+use async_graphql::{http::GraphiQLSource, Schema};
 use async_graphql_axum::{GraphQL, GraphQLSubscription};
 use axum::{
     response::{self, IntoResponse},
     routing::get,
     Router,
 };
-use futures_util::stream::Stream;
-use std::time::Duration;
 
 use crate::resolver::mutation_root_resolver::MutationRoot;
 use crate::resolver::query_root_resolver::QueryRoot;
+use crate::resolver::subscription_root_resolver::SubscriptionRoot;
 use crate::Dependency;
 
 pub async fn create_router(dependency: Dependency) -> Router {
@@ -34,23 +33,4 @@ pub async fn graphiql() -> impl IntoResponse {
             .subscription_endpoint("/ws")
             .finish(),
     )
-}
-
-//TODO: resolverに移動
-
-// Subscription
-struct SubscriptionRoot;
-
-#[Subscription]
-impl SubscriptionRoot {
-    async fn interval(&self, #[graphql(default = 1)] n: i32) -> impl Stream<Item = i32> {
-        let mut value = 0;
-        async_stream::stream! {
-            loop {
-                futures_timer::Delay::new(Duration::from_secs(1)).await;
-                value += n;
-                yield value;
-            }
-        }
-    }
 }

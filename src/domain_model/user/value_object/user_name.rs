@@ -1,9 +1,12 @@
 use anyhow::Result;
+use async_graphql::SimpleObject;
 use std::fmt::{self, Display, Formatter};
 use thiserror::Error;
 
-#[derive(Error, Clone, Debug, PartialEq, Eq)]
-pub struct UserName(String);
+#[derive(Error, Clone, Debug, PartialEq, Eq, SimpleObject)]
+pub struct UserName {
+    value: String,
+}
 
 #[derive(Error, Debug, Clone)]
 pub enum UserNameError {
@@ -20,13 +23,15 @@ impl UserName {
         } else if user_name.len() > 14 {
             Err(UserNameError::TooLong.into())
         } else {
-            Ok(UserName(user_name.to_string()))
+            Ok(UserName {
+                value: user_name.to_string(),
+            })
         }
     }
 }
 
 impl Display for UserName {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        write!(f, "{}", self.0)
+        write!(f, "{}", self.value)
     }
 }
