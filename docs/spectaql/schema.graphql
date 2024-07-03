@@ -17,6 +17,7 @@ type Room {
     Host: User
     IsActive: Boolean
     users: [User!]
+    isConfirmed: Boolean
 }
 
 type MusicLibraries {
@@ -37,14 +38,6 @@ input MusicLibraryInput {
     title: String!
     artist: String!
     appleMusicId: Int!
-}
-
-"ルームの更新情報"
-type RoomUpdated {
-    id: ID!
-    room: Room
-    "メンバー確定かどうか"
-    isConfirmed: Boolean  
 }
 
 type Query {
@@ -68,7 +61,7 @@ type Mutation {
 
 type Subscription {
     "ルーム情報をサブスクライブする。メンバー、ルームがアクティブかどうか、ルームが確定したかどうかがわかる。"
-    roomUpdated(roomId: ID!): RoomUpdated
+    roomUpdated(roomId: ID!): Room
 }
 
 schema {
