@@ -7,6 +7,8 @@ services:
       - "8000:8000"
     volumes:
       - .:/usr/src/myapp
+    environment:
+      DATABASE_URL: "mysql://user:password@db:3306/music_sync"
     depends_on:
       - db
 
