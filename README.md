@@ -2,17 +2,51 @@
 
 ## Setup
 
-コンテナ立ち上げ．
+Rustアプリケーションは `Docker` と `ローカル` のどちらで動かしても大丈夫です。
+
+### RustアプリケーションをDockerで動かしたい場合
+
+コンテナ立ち上げ。
 
 ```
 docker compose up -d
 ```
 
-マイグレーション
+マイグレーション。
 
 ```
+docker compose exec app bash
 make migrate
 ```
+
+### RustアプリケーションをLocalで動かしたい場合
+
+コンテナ立ち上げ（DBのみ）。
+
+```
+docker compose up db -d
+```
+
+マイグレーション。
+
+```
+cargo install sqlx-cli
+make migrate
+```
+
+Rustアプリケーション実行。
+
+```
+cargo run
+```
+
+コードの変更を監視し、自動で `cargo run` したい場合。
+
+```
+cargo install cargo-watch
+cargo watch -x run
+```
+
 
 ### Docker containers
 
