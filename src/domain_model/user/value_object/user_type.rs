@@ -11,7 +11,7 @@ impl From<String> for UserType {
         match s.as_str() {
             "guest" => UserType::Guest,
             "registered" => UserType::Registered,
-            _ => unreachable!(),
+            _ => panic!("Invalid user type: {}", s),
         }
     }
 }
