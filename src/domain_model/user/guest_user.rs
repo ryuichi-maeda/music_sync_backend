@@ -8,9 +8,8 @@ use super::value_object::user_type::UserType;
 #[derive(Debug, Clone, PartialEq, Eq, SimpleObject)]
 pub struct GuestUser {
     pub id: UserID,
-    pub user_name: UserName,
+    pub username: UserName,
     pub user_type: UserType,
-    pub is_deleted: bool,
 }
 
 impl GuestUser {
@@ -22,12 +21,11 @@ impl GuestUser {
     ///
     /// # 戻り値
     /// - `GuestUser` - ユーザー
-    pub fn new(id: String, user_name: UserName) -> Self {
+    pub fn new(id: String, username: UserName) -> Self {
         GuestUser {
             id: UserID::new(id),
-            user_name,
+            username,
             user_type: UserType::Guest,
-            is_deleted: false,
         }
     }
 }
