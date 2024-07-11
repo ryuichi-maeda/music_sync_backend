@@ -35,3 +35,9 @@ impl Display for UserName {
         write!(f, "{}", self.value)
     }
 }
+
+impl From<String> for UserName {
+    fn from(user_name: String) -> Self {
+        UserName { value: user_name }
+    }
+}

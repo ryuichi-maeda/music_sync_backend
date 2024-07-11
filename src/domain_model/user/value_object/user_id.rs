@@ -1,5 +1,4 @@
 use async_graphql::{InputObject, SimpleObject};
-use uuid::Uuid;
 
 #[derive(Debug, Clone, PartialEq, Eq, SimpleObject)]
 pub struct UserID {
@@ -14,9 +13,21 @@ impl UserID {
     pub fn new(user_id: String) -> Self {
         UserID { value: user_id }
     }
+
+    pub fn raw_value(&self) -> String {
+        self.value.clone()
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, InputObject)]
 pub struct UserIDInput {
     pub value: String,
+}
+
+impl From<i32> for UserID {
+    fn from(user_id: i32) -> Self {
+        UserID {
+            value: user_id.to_string(),
+        }
+    }
 }
