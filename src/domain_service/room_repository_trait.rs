@@ -7,5 +7,6 @@ pub trait RoomRepositoryTrait: Send + Sync {
     async fn find_by_room_pin(&self, room_pin: String) -> Result<Room>;
     async fn save(&self, room: Room) -> Result<Room>;
     async fn delete(&self, room: Room, user: GuestUser) -> Result<()>;
+    async fn is_active(&self, room_pin: String) -> Result<bool>;
     async fn check_existence(&self, room_pin: String) -> Result<bool>;
 }

@@ -107,7 +107,7 @@ impl RoomRepositoryTrait for RoomRepository {
         Ok(())
     }
 
-    async fn check_existence(&self, room_pin: String) -> Result<bool> {
+    async fn is_active(&self, room_pin: String) -> Result<bool> {
         let room_data = sqlx::query_as!(
             RoomData,
             r#" 
@@ -126,6 +126,21 @@ impl RoomRepositoryTrait for RoomRepository {
             Ok(true)
         } else {
             Ok(false)
+        }
+    }
+
+    async fn check_existence(&self, room_pin: String) -> Result<bool> {
+        let result = sqlx::query!(
+            r#"SELECT COUNT(*) as count FROM rooms WHERE room_pin = ?"#,
+            room_pin
+        )
+        .fetch_one(&self.pool)
+        .await?;
+
+        if result.count == 0 {
+            Ok(false)
+        } else {
+            Ok(true)
         }
     }
 }
