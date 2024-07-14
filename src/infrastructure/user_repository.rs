@@ -19,7 +19,15 @@ impl UserRepository {
 #[async_trait]
 impl UserRepositoryTrait for UserRepository {
     async fn find_by_id(&self, id: UserID) -> Result<GuestUser> {
-        todo!()
+        let user = sqlx::query_as!(
+            GuestUser,
+            r#"SELECT id, username, user_type FROM users WHERE id = ?"#,
+            id.raw_value()
+        )
+        .fetch_one(&self.pool)
+        .await?;
+
+        Ok(user)
     }
 
     async fn find_all(&self) -> Result<Vec<GuestUser>> {
